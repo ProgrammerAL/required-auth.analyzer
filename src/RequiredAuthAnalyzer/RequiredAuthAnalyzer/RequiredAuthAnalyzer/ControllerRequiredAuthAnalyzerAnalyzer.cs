@@ -42,7 +42,7 @@ namespace RequiredAuthAnalyzer
         private static void AnalyzeSymbol(SymbolAnalysisContext context)
         {
             var methodSymbol = (IMethodSymbol)context.Symbol;
-            if (IsEndpointForTraditionalController(methodSymbol))
+            if (IsEndpointForTraditionalController(methodSymbol, context))
             {
                 AnalyzeTraditionalControllerEndpoint(methodSymbol, context);
             }
@@ -54,9 +54,12 @@ namespace RequiredAuthAnalyzer
             var hasAuthAttribute = methodSymbol.GetAttributes()
                 .Any(x =>
                 {
-                    var name = x.GetType().FullName;
-                    return name == "Microsoft.AspNetCore.Authorization.AuthorizeAttribute"
-                        || name == "Microsoft.AspNetCore.Authorization.AllowAnonymousAttribute";
+                    var name = x.AttributeClass.Name;
+                    return 
+                        name == "Authorize"
+                        || name == "AuthorizeAttribute"
+                        || name == "AllowAnonymous"
+                        || name == "AllowAnonymousAttribute";
                 });
 
             if (!hasAuthAttribute)
@@ -66,12 +69,17 @@ namespace RequiredAuthAnalyzer
             }
         }
 
-        private static bool IsEndpointForTraditionalController(IMethodSymbol methodSymbol)
+        private static bool IsEndpointForTraditionalController(IMethodSymbol methodSymbol, SymbolAnalysisContext context)
         {
             var parentClass = methodSymbol.ContainingType;
+
             var isParentApiController = parentClass
                     .GetAttributes()
-                    .Any(x => x.GetType().FullName == "Microsoft.AspNetCore.Mvc.ApiControllerAttribute");
+                    .Any(x =>
+                        x.AttributeClass.Name == "ApiController"
+                        || x.AttributeClass.Name == "ApiControllerAttribute"
+                        || x.AttributeClass.Name == "Microsoft.AspNetCore.Mvc.ApiController"
+                        || x.AttributeClass.Name == "Microsoft.AspNetCore.Mvc.ApiControllerAttribute");
 
             if (!isParentApiController)
             {
