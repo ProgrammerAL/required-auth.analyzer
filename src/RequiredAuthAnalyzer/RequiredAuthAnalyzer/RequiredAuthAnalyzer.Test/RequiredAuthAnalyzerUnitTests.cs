@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyCS = RequiredAuthAnalyzer.Test.CSharpCodeFixVerifier<
-    RequiredAuthAnalyzer.RequiredAuthAnalyzerAnalyzer,
+    RequiredAuthAnalyzer.ControllerRequiredAuthAnalyzerAnalyzer,
     RequiredAuthAnalyzer.RequiredAuthAnalyzerCodeFixProvider>;
 
 namespace RequiredAuthAnalyzer.Test
