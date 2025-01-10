@@ -14,7 +14,7 @@ namespace RequiredAuthAnalyzer
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class ControllerRequiredAuthAnalyzerAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = "ControllerRequiredAuthAnalyzerAnalyzer";
+        public const string DiagnosticId = nameof(ControllerRequiredAuthAnalyzerAnalyzer);
 
         // You can change these strings in the Resources.resx file. If you do not want your analyzer to be localize-able, you can use regular strings for Title and MessageFormat.
         // See https://github.com/dotnet/roslyn/blob/main/docs/analyzers/Localizing%20Analyzers.md for more on localization
@@ -24,7 +24,7 @@ namespace RequiredAuthAnalyzer
         private const string Category = "Security";
 
 #pragma warning disable RS2008 // Enable analyzer release tracking
-        private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
+        public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
 #pragma warning restore RS2008 // Enable analyzer release tracking
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get { return ImmutableArray.Create(Rule); } }
@@ -50,7 +50,6 @@ namespace RequiredAuthAnalyzer
 
         private static void AnalyzeTraditionalControllerEndpoint(IMethodSymbol methodSymbol, SymbolAnalysisContext context)
         {
-            //TODO: Are there more attributes?
             var hasAuthAttribute = methodSymbol.GetAttributes()
                 .Any(x =>
                 {
@@ -75,11 +74,7 @@ namespace RequiredAuthAnalyzer
 
             var isParentApiController = parentClass
                     .GetAttributes()
-                    .Any(x =>
-                        x.AttributeClass.Name == "ApiController"
-                        || x.AttributeClass.Name == "ApiControllerAttribute"
-                        || x.AttributeClass.Name == "Microsoft.AspNetCore.Mvc.ApiController"
-                        || x.AttributeClass.Name == "Microsoft.AspNetCore.Mvc.ApiControllerAttribute");
+                    .Any(x => x.AttributeClass.ToString() == "Microsoft.AspNetCore.Mvc.ApiControllerAttribute");
 
             if (!isParentApiController)
             {

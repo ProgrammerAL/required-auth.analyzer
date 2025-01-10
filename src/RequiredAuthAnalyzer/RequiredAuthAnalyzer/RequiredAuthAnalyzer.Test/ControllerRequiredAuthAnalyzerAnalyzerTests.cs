@@ -1,28 +1,39 @@
 ﻿using System.Threading.Tasks;
 
+using Gu.Roslyn.Asserts;
+
+using Microsoft;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using VerifyCS = RequiredAuthAnalyzer.Test.Verifiers.CSharpAnalyzerVerifier<
-    RequiredAuthAnalyzer.ControllerRequiredAuthAnalyzerAnalyzer>;
+//using VerifyCS = RequiredAuthAnalyzer.Test.Verifiers.CSharpAnalyzerVerifier<
+//    RequiredAuthAnalyzer.ControllerRequiredAuthAnalyzerAnalyzer>;
 
 namespace RequiredAuthAnalyzer.Test;
 
 [TestClass]
-public class ControllerRequiredAuthAnalyzerAnalyzer
+public class ControllerRequiredAuthAnalyzerAnalyzerTests
 {
+    private static readonly DiagnosticAnalyzer Analyzer = new ControllerRequiredAuthAnalyzerAnalyzer();
+    private static readonly ExpectedDiagnostic ExpectedDiagnostic = ExpectedDiagnostic.Create(ControllerRequiredAuthAnalyzerAnalyzer.Rule);
+
     //No diagnostics expected to show up
     [TestMethod]
-    public async Task WhenEmpty_AssertNoDiagnostic()
+    public void WhenCodeEmpty_AssertNoDiagnostic()
     {
-        var test = @"";
-
-        await VerifyCS.VerifyAnalyzerAsync(test);
+        var code = @"";
+        RoslynAssert.Valid(Analyzer, code);
     }
 
+
     [TestMethod]
-    public async Task WhenAllowAnonymous_AssertNoDiagnostic()
+    [DataRow("Authorize")]
+    [DataRow("AuthorizeAttribute")]
+    [DataRow("AllowAnonymous")]
+    [DataRow("AllowAnonymousAttribute")]
+    public void WhenAllowAnonymous_AssertNoDiagnostic(string attributeName)
     {
-        var test = @"
+        var code = $$"""
         using System.Collections.Generic;
         using Microsoft.AspNetCore.Authorization;
         using Microsoft.AspNetCore.Mvc;
@@ -30,37 +41,31 @@ public class ControllerRequiredAuthAnalyzerAnalyzer
         namespace MyNamespace;
 
         [ApiController]
-        [Route(""WeatherForecast"")]
+        [Route("WeatherForecast")]
         public class WeatherForecastController : ControllerBase
         {
-            [AllowAnonymous]
+            [{{attributeName}}]
             [HttpGet]
             public IEnumerable<int> Get()
             {
                 return [1, 2, 3];
             }
         }
-    ";
+    """;
 
-        await VerifyCS.VerifyAnalyzerAsync(test);
+        RoslynAssert.Valid(Analyzer, code);
     }
 
     [TestMethod]
-    public async Task WhenMissingAuthAttribute_AssertDiagnostic()
+    public void WhenNoAuthAttribute_AssertDiagnostic()
     {
-        var test = @"
-    using System;
+        var code = @"
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     namespace MyNamespace;
 
-    [ApiController]
+    [Microsoft.AspNetCore.Mvc.ApiController]
     [Route(""[controller]"")]
     public class WeatherForecastController : ControllerBase
     {
@@ -72,7 +77,6 @@ public class ControllerRequiredAuthAnalyzerAnalyzer
     }    
     ";
 
-        var expected = VerifyCS.Diagnostic("ControllerRequiredAuthAnalyzerAnalyzer").WithLocation(0).WithArguments("TypeName");
-        await VerifyCS.VerifyAnalyzerAsync(test, expected);
+        RoslynAssert.Diagnostics(Analyzer, ExpectedDiagnostic, code);
     }
 }
