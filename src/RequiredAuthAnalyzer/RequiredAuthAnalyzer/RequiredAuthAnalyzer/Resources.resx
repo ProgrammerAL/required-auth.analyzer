@@ -117,16 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnalyzerDescription" xml:space="preserve">
-    <value>Type names should be all uppercase.</value>
+  <data name="ControllerRequiredAuthAnalyzerDescription" xml:space="preserve">
+    <value>Controller endpoint requires attribute to authenticate the user, or an attribute specifying no anonymous requests are allowed.</value>
     <comment>An optional longer localizable description of the diagnostic.</comment>
   </data>
-  <data name="AnalyzerMessageFormat" xml:space="preserve">
-    <value>Type name '{0}' contains lowercase letters</value>
+  <data name="ControllerRequiredAuthAnalyzerMessageFormat" xml:space="preserve">
+    <value>Controller endpoint '{0}' requires an attribute specifying authentication, or allow anonymous</value>
     <comment>The format-able message the diagnostic displays.</comment>
   </data>
-  <data name="AnalyzerTitle" xml:space="preserve">
-    <value>Type name contains lowercase letters</value>
+  <data name="ControllerRequiredAuthAnalyzerTitle" xml:space="preserve">
+    <value>Controller endpoint requires authentication attribute</value>
+    <comment>The title of the diagnostic.</comment>
+  </data>
+  <data name="MinimalApiRequiredAuthAnalyzerDescription" xml:space="preserve">
+    <value>Minimal API endpoint requires attribute to authenticate the user, or an attribute specifying no anonymous requests are allowed.</value>
+    <comment>An optional longer localizable description of the diagnostic.</comment>
+  </data>
+  <data name="MinimalApiRequiredAuthAnalyzerMessageFormat" xml:space="preserve">
+    <value>Minimal API endpoint '{0}' requires an attribute specifying authentication, or allow anonymous</value>
+    <comment>The format-able message the diagnostic displays.</comment>
+  </data>
+  <data name="MinimalApiRequiredAuthAnalyzerTitle" xml:space="preserve">
+    <value>Minimal API endpoint requires authentication attribute</value>
     <comment>The title of the diagnostic.</comment>
   </data>
 </root>

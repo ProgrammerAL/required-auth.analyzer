@@ -20,7 +20,7 @@ namespace RequiredAuthAnalyzer
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(ControllerRequiredAuthAnalyzerAnalyzer.DiagnosticId); }
+            get { return ImmutableArray.Create(ControllerRequiredAuthAnalyzer.DiagnosticId); }
         }
 
         public sealed override FixAllProvider GetFixAllProvider()

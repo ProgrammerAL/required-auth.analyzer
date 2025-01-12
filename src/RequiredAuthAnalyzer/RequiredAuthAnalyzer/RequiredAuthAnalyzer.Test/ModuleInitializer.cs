@@ -13,6 +13,7 @@ internal static class ModuleInitializer
             MetadataReferences.Transitive(
                 typeof(Microsoft.Extensions.Hosting.GenericHostBuilderExtensions),
                 typeof(Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions),
+                typeof(Microsoft.AspNetCore.Http.TypedResults),
                 typeof(Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions)));
     }
 }
