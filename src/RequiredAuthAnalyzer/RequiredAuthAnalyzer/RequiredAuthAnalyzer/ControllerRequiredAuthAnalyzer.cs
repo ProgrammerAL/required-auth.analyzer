@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace RequiredAuthAnalyzer;
+namespace ProgrammerAL.Analyzers.RequiredAuthAnalyzer;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public class ControllerRequiredAuthAnalyzer : DiagnosticAnalyzer

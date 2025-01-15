@@ -3,6 +3,8 @@
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using ProgrammerAL.Analyzers.RequiredAuthAnalyzer;
+
 namespace RequiredAuthAnalyzer.Test;
 
 [TestClass]

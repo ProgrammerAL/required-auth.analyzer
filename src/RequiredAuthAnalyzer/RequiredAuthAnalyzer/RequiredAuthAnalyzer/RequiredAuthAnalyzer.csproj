@@ -12,6 +12,9 @@
 
 		<!-- Avoid ID conflicts with the package project. -->
 		<PackageId>*$(MSBuildProjectFile)*</PackageId>
+
+		<RootNamespace>ProgrammerAL.Analyzers.RequiredAuthAnalyzer</RootNamespace>
+		<AssemblyName>ProgrammerAL.Analyzers.RequiredAuthAnalyzer</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>

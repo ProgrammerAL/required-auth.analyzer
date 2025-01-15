@@ -1,45 +1,48 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>RequiredAuthAnalyzer</PackageId>
-    <PackageVersion>1.0.0.0</PackageVersion>
-    <Authors>Progr</Authors>
-    <PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
-    <PackageProjectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</PackageProjectUrl>
-    <PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>
-    <RepositoryUrl>http://REPOSITORY_URL_HERE_OR_DELETE_THIS_LINE</RepositoryUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>RequiredAuthAnalyzer</Description>
-    <PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>
-    <Copyright>Copyright</Copyright>
-    <PackageTags>RequiredAuthAnalyzer, analyzers</PackageTags>
-    <DevelopmentDependency>true</DevelopmentDependency>
-    <NoPackageAnalysis>true</NoPackageAnalysis>
+	<PropertyGroup>
+		<PackageId>ProgrammerAL.Analyzers.RequiredAuthAnalyzer</PackageId>
+		<Version>0.1.0</Version>
+		<Authors>ProgrammerAL</Authors>
+		<PackageLicenseUrl>https://github.com/ProgrammerAL/required-auth.analyzer/blob/main/LICENSE</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/ProgrammerAL/required-auth.analyzer</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ProgrammerAL/required-auth.analyzer</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<Description>A Roslyn Analyzer to make sure all endpoints in an ASP.NET project have an attribute to specify what level of authorization is required</Description>
+		<Copyright>Copyright</Copyright>
+		<PackageTags>RequiredAuthAnalyzer, analyzers, ProgrammerAL</PackageTags>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<NoPackageAnalysis>true</NoPackageAnalysis>
 
-    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
-  </PropertyGroup>
+		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RequiredAuthAnalyzer.CodeFixes\RequiredAuthAnalyzer.CodeFixes.csproj" />
-    <ProjectReference Include="..\RequiredAuthAnalyzer\RequiredAuthAnalyzer.csproj" />
-  </ItemGroup>
+		<!--Mark the nuget as a dev dependency, so any projects using this nuget don't auto pull in this project-->
+		<DevelopmentDependency>true</DevelopmentDependency>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\RequiredAuthAnalyzer\RequiredAuthAnalyzer.csproj" />
+	</ItemGroup>
 
-  <Target Name="_AddAnalyzersToOutput">
-    <ItemGroup>
-      <TfmSpecificPackageFile Include="$(OutputPath)\RequiredAuthAnalyzer.dll" PackagePath="analyzers/dotnet/cs" />
-      <TfmSpecificPackageFile Include="$(OutputPath)\RequiredAuthAnalyzer.CodeFixes.dll" PackagePath="analyzers/dotnet/cs" />
-    </ItemGroup>
-  </Target>
+	<ItemGroup>
+		<None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
+	</ItemGroup>
 
+	<Target Name="_AddAnalyzersToOutput">
+		<ItemGroup>
+			<TfmSpecificPackageFile Include="$(OutputPath)\ProgrammerAL.Analyzers.RequiredAuthAnalyzer.dll" PackagePath="analyzers/dotnet/cs" />
+		</ItemGroup>
+	</Target>
+
+
+	<ItemGroup>
+		<None Include="../../../../README.md" Pack="true" PackagePath="/" />
+	</ItemGroup>
 </Project>
