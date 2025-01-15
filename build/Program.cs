@@ -73,11 +73,12 @@ public sealed class BuildTask : FrostingTask<BuildContext>
 
         BuildDotnetApp(context, context.ProjectPaths.PathToSln);
         TestDotnetApp(context, context.ProjectPaths.UnitTestProj);
-        PackNugetPackage(context, context.ProjectPaths.OutDir, context.ProjectPaths.CsprojFile);
+        PackNugetPackage(context, context.ProjectPaths.OutDir, context.ProjectPaths.NuGetCsprojFile);
     }
 
     private void BuildDotnetApp(BuildContext context, string pathToSln)
     {
+        context.Log.Information("---Starting Build---");
         context.DotNetRestore(pathToSln, new DotNetRestoreSettings { });
 
         context.DotNetBuild(pathToSln, new DotNetBuildSettings
@@ -89,6 +90,7 @@ public sealed class BuildTask : FrostingTask<BuildContext>
 
     private void TestDotnetApp(BuildContext context, string pathToUnitTestProj)
     {
+        context.Log.Information("---Starting Unit Tests---");
         var testSettings = new DotNetTestSettings()
         {
             Configuration = BuildContext.BuildConfiguration,
@@ -101,6 +103,7 @@ public sealed class BuildTask : FrostingTask<BuildContext>
 
     private void PackNugetPackage(BuildContext context, string outDir, string csprojFile)
     {
+        context.Log.Information("---Starting Nuget Packaging---");
         context.DotNetPack(csprojFile, new Cake.Common.Tools.DotNet.Pack.DotNetPackSettings
         {
             IncludeSymbols = false,

@@ -12,6 +12,7 @@ public record ProjectPaths(
     string PathToSln,
     string ProjectFolder,
     string CsprojFile,
+    string NuGetCsprojFile,
     string UnitTestProj,
     string OutDir,
     string NuGetFilePath)
@@ -23,7 +24,8 @@ public record ProjectPaths(
         var pathToSln = $"{codeRootDirectory}/{projectName}.sln";
         var projectDir = $"{codeRootDirectory}/{projectName}";
         var csProjFile = $"{codeRootDirectory}/{projectName}.csproj";
-        var unitTestsProj = $"{projectDir}/RequiredAuthAnalyzer.Test/RequiredAuthAnalyzer.Test.csproj";
+        var nugetCsProjFile = $"{projectDir}/{projectName}.Package/{projectName}.Package.csproj";
+        var unitTestsProj = $"{projectDir}/{projectName}.Test/{projectName}.Test.csproj";
         var outDir = projectDir + $"/bin/{buildConfiguration}/cake-build-output";
         var nugetFilePath = outDir + $"/*{nugetVersion}.nupkg";
 
@@ -32,6 +34,7 @@ public record ProjectPaths(
             pathToSln,
             projectDir,
             csProjFile,
+            nugetCsProjFile,
             unitTestsProj,
             outDir,
             nugetFilePath);
