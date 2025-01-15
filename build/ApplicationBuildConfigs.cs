@@ -22,7 +22,7 @@ public record ProjectPaths(
         var codeRootDirectory =  $"{srcDirectory}/{projectName}/";
         var pathToSln = $"{codeRootDirectory}/{projectName}.sln";
         var projectDir = $"{codeRootDirectory}/{projectName}";
-        var csProjFile = $"{projectDir}/{projectName}.csproj";
+        var csProjFile = $"{codeRootDirectory}/{projectName}.csproj";
         var unitTestsProj = $"{projectDir}/RequiredAuthAnalyzer.Test/RequiredAuthAnalyzer.Test.csproj";
         var outDir = projectDir + $"/bin/{buildConfiguration}/cake-build-output";
         var nugetFilePath = outDir + $"/*{nugetVersion}.nupkg";
