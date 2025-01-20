@@ -136,4 +136,41 @@ public class MinimalApiRequiredAuthAnalyzerAnalyzerTests
 
         RoslynAssert.Valid(Analyzer, code);
     }
+
+
+    [TestMethod]
+    public void WhenMappingGroup_AssertNoRuleViolation()
+    {
+        var code = @"
+        using Microsoft.AspNetCore.Builder;
+        using Microsoft.AspNetCore.Http;
+        using Microsoft.AspNetCore.Routing;
+
+        namespace RequiredAuthAnalyzer.Test;
+
+        public class MyEndpoint
+        {
+            public static IEndpointConventionBuilder RegisterApiEndpoint(WebApplication app)
+            {
+                var group = app.MapGroup(""/my-api/my-group"");
+
+                group.MapGet(""/my-endpoint-1"",
+                [Microsoft.AspNetCore.Authorization.Authorize] () =>
+                {
+                    return TypedResults.Ok();
+                });
+
+                group.MapGet(""/my-endpoint-2"",
+                [Microsoft.AspNetCore.Authorization.AllowAnonymous]() =>
+                {
+                    return TypedResults.Ok();
+                });
+
+                return group;
+            }
+        }  
+    ";
+
+        RoslynAssert.Valid(Analyzer, code);
+    }
 }

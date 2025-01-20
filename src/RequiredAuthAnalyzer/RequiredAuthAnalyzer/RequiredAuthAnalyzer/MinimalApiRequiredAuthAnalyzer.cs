@@ -49,6 +49,11 @@ public class MinimalApiRequiredAuthAnalyzer : DiagnosticAnalyzer
             return false;
         }
 
+        if (!methodSymbol.ReturnType.ToString().Equals("Microsoft.AspNetCore.Builder.IEndpointConventionBuilder"))
+        {
+            return false;
+        }
+
         var parentClass = methodSymbol.ContainingType;
         var isMethodInsideRouteBuilderExtensions = parentClass.ToString().Equals(KnownTypesConstants.EndpointRouteBuilderExtensions);
 
