@@ -38,11 +38,7 @@
 	<Target Name="_AddAnalyzersToOutput">
 		<ItemGroup>
 			<TfmSpecificPackageFile Include="$(OutputPath)\ProgrammerAL.Analyzers.RequiredAuthAnalyzer.dll" PackagePath="analyzers/dotnet/cs" />
+			<TfmSpecificPackageFile Include="../../../../README.md" PackagePath="/" />
 		</ItemGroup>
 	</Target>
-
-
-	<ItemGroup>
-		<None Include="../../../../README.md" Pack="true" PackagePath="/" />
-	</ItemGroup>
 </Project>
