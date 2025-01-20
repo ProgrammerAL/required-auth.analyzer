@@ -36,20 +36,21 @@ public class MinimalApiRequiredAuthAnalyzer : DiagnosticAnalyzer
         var symbolInfo = context.SemanticModel.GetSymbolInfo(invocationExpr.Expression);
 
         if (symbolInfo.Symbol is IMethodSymbol methodSymbol
-            && IsEndpointForMinimalApi(methodSymbol))
+            && IsEndpointForMinimalApi(methodSymbol, invocationExpr, context))
         {
             AnalyzeTraditionalControllerEndpoint(methodSymbol, invocationExpr, context);
         }
     }
 
-    private static bool IsEndpointForMinimalApi(IMethodSymbol methodSymbol)
+    private static bool IsEndpointForMinimalApi(IMethodSymbol methodSymbol, InvocationExpressionSyntax invocationExpr, SyntaxNodeAnalysisContext context)
     {
         if (!methodSymbol.Name.StartsWith("Map"))
         {
             return false;
         }
 
-        if (!methodSymbol.ReturnType.ToString().Equals("Microsoft.AspNetCore.Builder.IEndpointConventionBuilder"))
+        //Special cases we know aren't specific endpoints
+        if (methodSymbol.Name.Equals("MapGroup"))
         {
             return false;
         }
