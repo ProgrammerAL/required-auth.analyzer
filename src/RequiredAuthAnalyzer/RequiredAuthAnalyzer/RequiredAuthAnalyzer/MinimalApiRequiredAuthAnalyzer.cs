@@ -20,7 +20,7 @@ public class MinimalApiRequiredAuthAnalyzer : DiagnosticAnalyzer
     public const string DiagnosticId = "PAL2000";
     public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get { return ImmutableArray.Create(Rule); } }
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => [Rule];
 
     public override void Initialize(AnalysisContext context)
     {
@@ -76,7 +76,9 @@ public class MinimalApiRequiredAuthAnalyzer : DiagnosticAnalyzer
 
         if (!hasAuthAttribute)
         {
-            var diagnostic = Diagnostic.Create(Rule, methodSymbol.Locations[0], methodSymbol.Name);
+            var location = methodInvocation.GetLocation();
+
+            var diagnostic = Diagnostic.Create(Rule, location, methodSymbol.Name);
             context.ReportDiagnostic(diagnostic);
         }
     }
