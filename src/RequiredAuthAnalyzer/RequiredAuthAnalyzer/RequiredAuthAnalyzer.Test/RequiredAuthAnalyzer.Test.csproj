@@ -1,30 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
-
-		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Gu.Roslyn.Asserts" Version="4.3.0" />
-		<PackageReference Include="Gu.Roslyn.Asserts.Analyzers" Version="4.0.0" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-		<PackageReference Include="MSTest.TestAdapter" Version="3.7.0" />
-		<PackageReference Include="MSTest.TestFramework" Version="3.7.0" />
-		<PackageReference Include="Microsoft.CodeAnalysis" Version="4.12.0" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing.MSTest" Version="1.1.2" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeFix.Testing.MSTest" Version="1.1.2" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing.MSTest" Version="1.1.2" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\RequiredAuthAnalyzer\RequiredAuthAnalyzer.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
-
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Gu.Roslyn.Asserts" Version="4.3.0" />
+    <PackageReference Include="Gu.Roslyn.Asserts.Analyzers" Version="4.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.7.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.7.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.12.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing.MSTest" Version="1.1.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeFix.Testing.MSTest" Version="1.1.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing.MSTest" Version="1.1.2" />
+    <PackageReference Include="System.Formats.Asn1" Version="9.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RequiredAuthAnalyzer\RequiredAuthAnalyzer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NuGetAudit>true</NuGetAudit>
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <NuGetAuditLevel>low</NuGetAuditLevel>
+  </PropertyGroup>
 </Project>

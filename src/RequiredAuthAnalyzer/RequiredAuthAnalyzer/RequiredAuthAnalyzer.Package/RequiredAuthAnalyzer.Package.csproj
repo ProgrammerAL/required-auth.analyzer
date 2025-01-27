@@ -1,45 +1,52 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<IncludeBuildOutput>false</IncludeBuildOutput>
-		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-	</PropertyGroup>
-
-	<PropertyGroup>
-		<PackageId>ProgrammerAL.Analyzers.RequiredAuthAnalyzer</PackageId>
-		<Version>0.1.0</Version>
-		<Authors>ProgrammerAL</Authors>
-		<PackageLicenseUrl>https://github.com/ProgrammerAL/required-auth.analyzer/blob/main/LICENSE</PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/ProgrammerAL/required-auth.analyzer</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/ProgrammerAL/required-auth.analyzer</RepositoryUrl>
-		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-		<Description>A Roslyn Analyzer to make sure all endpoints in an ASP.NET project have an attribute to specify what level of authorization is required</Description>
-		<Copyright>Copyright</Copyright>
-		<PackageTags>RequiredAuthAnalyzer, analyzers, ProgrammerAL</PackageTags>
-		<DevelopmentDependency>true</DevelopmentDependency>
-		<NoPackageAnalysis>true</NoPackageAnalysis>
-
-		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
-
-		<!--Mark the nuget as a dev dependency, so any projects using this nuget don't auto pull in this project-->
-		<DevelopmentDependency>true</DevelopmentDependency>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\RequiredAuthAnalyzer\RequiredAuthAnalyzer.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
-	</ItemGroup>
-
-	<Target Name="_AddAnalyzersToOutput">
-		<ItemGroup>
-			<TfmSpecificPackageFile Include="$(OutputPath)\ProgrammerAL.Analyzers.RequiredAuthAnalyzer.dll" PackagePath="analyzers/dotnet/cs" />
-			<TfmSpecificPackageFile Include="../../../../README.md" PackagePath="/" />
-		</ItemGroup>
-	</Target>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>ProgrammerAL.Analyzers.RequiredAuthAnalyzer</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>ProgrammerAL</Authors>
+    <PackageLicenseUrl>https://github.com/ProgrammerAL/required-auth.analyzer/blob/main/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/ProgrammerAL/required-auth.analyzer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ProgrammerAL/required-auth.analyzer</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>A Roslyn Analyzer to make sure all endpoints in an ASP.NET project have an attribute to specify what level of authorization is required</Description>
+    <Copyright>Copyright</Copyright>
+    <PackageTags>RequiredAuthAnalyzer, analyzers, ProgrammerAL</PackageTags>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
+    <!--Mark the nuget as a dev dependency, so any projects using this nuget don't auto pull in this project-->
+    <DevelopmentDependency>true</DevelopmentDependency>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Text.Encodings.Web" Version="9.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RequiredAuthAnalyzer\RequiredAuthAnalyzer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
+  </ItemGroup>
+  <Target Name="_AddAnalyzersToOutput">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(OutputPath)\ProgrammerAL.Analyzers.RequiredAuthAnalyzer.dll" PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="../../../../README.md" PackagePath="/" />
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NuGetAudit>true</NuGetAudit>
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <NuGetAuditLevel>low</NuGetAuditLevel>
+  </PropertyGroup>
 </Project>
