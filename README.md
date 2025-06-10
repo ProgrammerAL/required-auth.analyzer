@@ -20,4 +20,21 @@ As a developer, it's conceptually easier to see the attribute on the endpoint co
 
 Is it more work? Yeah, a bit. But that's why this Roslyn ANalyzer exists, to make it less work for us.
 
+## How to use this?
+
+It's a Roslyn Analyzer, so all you have to do is add the `ProgrammerAL.Analyzers.ControllerRequiredAuthAnalyzer` NuGet to your `.csproj` file. 
+
+https://www.nuget.org/packages/ProgrammerAL.Analyzers.ControllerRequiredAuthAnalyzer
+
+
+## What rules does it analyze for?
+
+- PAL2000
+  - A Minimal API Endpoint is missing explicit Auth. 
+- PAL2001
+  - A Controller Endpoint is missing explicit Auth. 
+
+## Can it be less strict?
+
+If you would instead like the option to force Auth at the Controller OR the endpoint level, there is another Roslyn Analyzer hosted at: https://github.com/ProgrammerAL/required-auth.controller.analyzer
 
